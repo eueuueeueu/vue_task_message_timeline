@@ -1,8 +1,8 @@
 <template>
-  <div id="main" class="w-screen h-screen overflow-hidden bg-purple-200">
+  <div id="main" class="w-screen h-screen overflow-hidden bg-red-200">
     <!-- message -->
     <div class="flex w-full justify-around">
-      <MessageBtn
+      <Btn
         @click="
           onOpenMessage({
             type: 'normal',
@@ -11,7 +11,7 @@
           })
         "
       />
-      <MessageBtn
+      <Btn
         @click="
           onOpenMessage({
             type: 'success',
@@ -22,7 +22,7 @@
         backgroundColor="#8ad764"
         text="open success"
       />
-      <MessageBtn
+      <Btn
         @click="
           onOpenMessage({
             type: 'error',
@@ -33,7 +33,7 @@
         backgroundColor="#ff4d4f"
         text="open error"
       />
-      <MessageBtn
+      <Btn
         @click="
           onOpenMessage({
             type: 'warning',
@@ -44,7 +44,7 @@
         backgroundColor="#faad14"
         text="open warning"
       />
-      <MessageBtn
+      <Btn
         @click="
           onOpenMessage({
             type: 'loading',
@@ -56,11 +56,39 @@
       />
     </div>
     <!-- timeline -->
+    <Timeline pending="Recording..." :reverse="reverse">
+      <TimelineItem color="green">Create a services site 2015-09-01</TimelineItem>
+      <TimelineItem color="green">Solve initial network problems 2015-09-01</TimelineItem>
+      <TimelineItem color="red">
+        <p>Solve initial network problems 1</p>
+        <p>Solve initial network problems 2</p>
+        <p>Solve initial network problems 3 2015-09-01</p>
+      </TimelineItem>
+      <TimelineItem>
+        <p>Technical testing 1</p>
+        <p>Technical testing 2</p>
+        <p>Technical testing 3 2015-09-01</p>
+      </TimelineItem>
+      <TimelineItem color="gray">
+        <p>Technical testing 1</p>
+        <p>Technical testing 2</p>
+        <p>Technical testing 3 2015-09-01</p>
+      </TimelineItem>
+      <TimelineItem color="gray">
+        <p>Technical testing 1</p>
+        <p>Technical testing 2</p>
+        <p>Technical testing 3 2015-09-01</p>
+      </TimelineItem>
+    </Timeline>
+    <Btn text="Toggle Reverse" @click="reverse = !reverse" />
   </div>
 </template>
 <script setup>
-import MessageBtn from './components/button/index.vue'
-import { useMessage, useTimeline } from './components'
+import { ref } from 'vue'
+import Btn from './components/Button/index.vue'
+import Timeline from './components/Timeline/Timeline.vue'
+import TimelineItem from './components/Timeline/Timeline-item.vue'
+import { useMessage } from './components'
 function onOpenMessage(option) {
   useMessage.open({ ...option }).then(() => {
     console.log('加载成功')
@@ -71,6 +99,5 @@ function onOpenMessage(option) {
     })
   })
 }
-
-useTimeline()
+const reverse = ref(false)
 </script>
